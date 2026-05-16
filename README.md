@@ -16,7 +16,7 @@ Backend API: https://gigflow-om6b.onrender.com
 
 ## 🎥 Demo Video
 
-Loom Walkthrough: https://your-loom-link.com
+Loom Walkthrough: https://www.loom.com/share/cc0b00d93c0945fabf6f84da46588c34
 
 ---
 
