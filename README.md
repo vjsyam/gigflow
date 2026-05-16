@@ -10,7 +10,7 @@ This project was developed as part of the ServiceHive Full Stack Internship Assi
 ## 🌐 Live Demo
 
 Frontend: https://gigflow-rho-rose.vercel.app
-Backend API: https://your-backend-api-link.com
+Backend API: https://gigflow-om6b.onrender.com
 
 ---
 
