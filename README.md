@@ -1,156 +1,289 @@
 # GigFlow — Smart Leads Dashboard
 
-A full-stack Lead Management Dashboard built with the MERN stack + TypeScript. Manage your sales pipeline with filtering, search, role-based access control, CSV export, and dark mode.
+GigFlow is a full-stack Lead Management Dashboard built using the MERN stack with TypeScript.
+The project focuses on practical sales workflow management with authentication, role-based access control, filtering, pagination, CSV export, and responsive UI support.
+
+This project was developed as part of the ServiceHive Full Stack Internship Assignment.
 
 ---
 
-## ✨ Features
+## 🌐 Live Demo
 
-### Core
-- **JWT Authentication** — Register, login, protected routes, bcrypt password hashing
-- **Lead CRUD** — Create, read, update, delete leads with full validation
-- **Advanced Filtering** — Filter by status, source, search by name/email, sort by date
-- **Backend Pagination** — 10 leads per page with full metadata
-- **Role-Based Access Control** — Admin (full access) vs Sales User (own leads only)
-- **CSV Export** — Export filtered leads to CSV in one click
-- **Debounced Search** — 400ms debounce on all search inputs
-- **Dark / Light Mode** — Toggle with persistence via localStorage
-
-### Tech Stack
-| Layer | Tech |
-|---|---|
-| Frontend | React 18, TypeScript, TailwindCSS, Zustand, React Router v6 |
-| Backend | Node.js, Express.js, TypeScript |
-| Database | MongoDB + Mongoose |
-| Auth | JWT + bcryptjs |
-| Containerization | Docker + Docker Compose |
+Frontend: https://gigflow-rho-rose.vercel.app
+Backend API: https://your-backend-api-link.com
 
 ---
 
-## 🚀 Quick Start
+## 🎥 Demo Video
 
-### Prerequisites
-- Node.js 20+
-- MongoDB (local or Atlas URI)
-- npm
+Loom Walkthrough: https://your-loom-link.com
 
-### 1. Clone & Install
+---
+
+# ✨ Features
+
+## Authentication
+
+* JWT-based authentication
+* User registration & login
+* Protected routes
+* Password hashing using bcrypt
+* Persistent login sessions
+
+## Leads Management
+
+* Create leads
+* Update leads
+* Delete leads
+* View individual lead details
+* Paginated leads dashboard
+
+## Filtering & Search
+
+* Filter by lead status
+* Filter by lead source
+* Search by name or email
+* Sort by latest or oldest
+* Multiple filters work together
+* Debounced search for reduced API calls
+
+## Role-Based Access Control
+
+### Admin
+
+* Access all leads
+* Edit/delete any lead
+* Export all leads
+
+### Sales User
+
+* Access only assigned leads
+* Edit/delete own leads
+* Export own leads
+
+## Additional Features
+
+* CSV export
+* Dark / Light mode
+* Responsive dashboard UI
+* Loading states
+* Empty states
+* Error handling UI
+* Form validation
+* Docker support
+
+---
+
+# 🛠️ Tech Stack
+
+| Layer            | Technology                        |
+| ---------------- | --------------------------------- |
+| Frontend         | React 18, TypeScript, TailwindCSS |
+| State Management | Zustand                           |
+| Backend          | Node.js, Express.js, TypeScript   |
+| Database         | MongoDB + Mongoose                |
+| Authentication   | JWT + bcryptjs                    |
+| Deployment       | Docker + Docker Compose           |
+
+---
+
+# 💡 Implementation Notes
+
+Some implementation decisions made during development:
+
+* Zustand was used instead of Context API to simplify auth and theme state management.
+* Backend filtering and pagination are query-based for easier frontend state synchronization.
+* Debounced search was implemented to avoid unnecessary API requests while typing.
+* CSV export respects active filters and role permissions.
+* Docker support was added to make local setup and deployment more consistent.
+
+---
+
+# ⚙️ Challenges Faced
+
+Some challenges during development included:
+
+* Synchronizing filters with pagination state
+* Managing RBAC cleanly across frontend and backend
+* Keeping TypeScript interfaces consistent throughout the application
+* Preventing unnecessary re-renders during live search
+* Handling API error states gracefully
+
+---
+
+# 🚀 Quick Start
+
+## Prerequisites
+
+Make sure you have installed:
+
+* Node.js (v20+ recommended)
+* MongoDB (local or Atlas)
+* npm
+
+---
+
+# 1. Clone Repository
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/gigflow.git
 cd gigflow
-
-# Install backend deps
-cd backend && npm install
-
-# Install frontend deps
-cd ../frontend && npm install
 ```
 
-### 2. Configure Environment
+---
 
-**Backend** — copy and fill in values:
+# 2. Install Dependencies
+
+## Backend
+
+```bash
+cd backend
+npm install
+```
+
+## Frontend
+
+```bash
+cd ../frontend
+npm install
+```
+
+---
+
+# 3. Environment Setup
+
+## Backend
+
+Copy `.env.example` and create `.env`
+
 ```bash
 cd backend
 cp .env.example .env
 ```
 
+Example:
+
 ```env
 PORT=5000
 MONGODB_URI=mongodb://localhost:27017/gigflow
-JWT_SECRET=your_strong_secret_here
+JWT_SECRET=your_secret_key
 JWT_EXPIRES_IN=7d
 NODE_ENV=development
 FRONTEND_URL=http://localhost:5173
 ```
 
-**Frontend** — copy and fill in values:
+---
+
+## Frontend
+
 ```bash
 cd frontend
 cp .env.example .env
 ```
 
+Example:
+
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
 
-### 3. Seed Demo Data (optional)
+---
+
+# 4. Seed Demo Data (Optional)
 
 ```bash
 cd backend
 npm run seed
 ```
 
-This creates:
-- **Admin:** `admin@gigflow.com` / `Admin@123`
-- **Sales:** `sales@gigflow.com` / `Sales@123`
-- 20 sample leads
+Demo Accounts:
 
-### 4. Run Development Servers
+### Admin
 
-```bash
-# Terminal 1 — Backend
-cd backend && npm run dev
-
-# Terminal 2 — Frontend
-cd frontend && npm run dev
+```txt
+Email: admin@gigflow.com
+Password: Admin@123
 ```
 
-Open [http://localhost:5173](http://localhost:5173)
+### Sales User
+
+```txt
+Email: sales@gigflow.com
+Password: Sales@123
+```
+
+This will also generate sample leads.
 
 ---
 
-## 🐳 Docker Setup
+# 5. Run Development Servers
+
+## Backend
 
 ```bash
-# From the root gigflow/ directory
-cp backend/.env.example backend/.env   # fill in your values
+cd backend
+npm run dev
+```
 
-# Build and start all services
+## Frontend
+
+```bash
+cd frontend
+npm run dev
+```
+
+Frontend runs at:
+
+```txt
+http://localhost:5173
+```
+
+---
+
+# 🐳 Docker Setup
+
+From the project root:
+
+```bash
 docker-compose up --build
+```
 
-# Seed demo data inside container (optional)
+Optional seed command:
+
+```bash
 docker-compose exec backend node dist/scripts/seed.js
 ```
 
-Services:
-- Frontend: [http://localhost](http://localhost)
-- Backend API: [http://localhost:5000](http://localhost:5000)
-- MongoDB: `mongodb://localhost:27017`
-
 ---
 
-## 📁 Project Structure
+# 📁 Project Structure
 
-```
+```txt
 gigflow/
 ├── backend/
 │   ├── src/
-│   │   ├── config/          # DB connection
-│   │   ├── controllers/     # Business logic (auth, leads)
-│   │   ├── middleware/       # Auth, error handler, validators
-│   │   ├── models/           # Mongoose schemas (User, Lead)
-│   │   ├── routes/           # Express route definitions
-│   │   ├── scripts/          # Seed script
-│   │   ├── types/            # TypeScript interfaces & enums
-│   │   └── index.ts          # App entry point
+│   │   ├── config/
+│   │   ├── controllers/
+│   │   ├── middleware/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── scripts/
+│   │   ├── types/
+│   │   └── index.ts
 │   ├── Dockerfile
-│   ├── tsconfig.json
 │   └── package.json
 │
 ├── frontend/
 │   ├── src/
-│   │   ├── api/              # Axios API layer (auth.ts, leads.ts, client.ts)
-│   │   ├── components/       # Reusable UI components
-│   │   ├── context/          # Zustand stores (auth, theme)
-│   │   ├── hooks/            # Custom hooks (useLeads, useDebounce)
-│   │   ├── pages/            # Page components (Dashboard, Login, Register)
-│   │   ├── types/            # TypeScript types
+│   │   ├── api/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   ├── stores/
+│   │   ├── types/
 │   │   ├── App.tsx
-│   │   ├── main.tsx
-│   │   └── index.css
+│   │   └── main.tsx
 │   ├── Dockerfile
-│   ├── nginx.conf
 │   └── package.json
 │
 ├── docker-compose.yml
@@ -159,60 +292,113 @@ gigflow/
 
 ---
 
-## 🔐 Role-Based Access Control
+# 🔐 Role Permissions
 
-| Action | Admin | Sales User |
-|---|---|---|
-| View all leads | ✅ | ❌ (own only) |
-| Create lead | ✅ | ✅ |
-| Edit any lead | ✅ | ❌ (own only) |
-| Delete any lead | ✅ | ❌ (own only) |
-| Export CSV | ✅ | ✅ (own leads) |
-| View stats | ✅ | ✅ (own leads) |
-
----
-
-## 📡 API Reference
-
-See `API.md` for full endpoint documentation.
-
-Base URL: `http://localhost:5000/api`
-
-### Auth
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/auth/register` | Register new user |
-| POST | `/auth/login` | Login |
-| GET | `/auth/me` | Get current user |
-
-### Leads
-| Method | Endpoint | Description | Auth |
-|---|---|---|---|
-| GET | `/leads` | Get paginated leads with filters | ✅ |
-| POST | `/leads` | Create lead | ✅ |
-| GET | `/leads/:id` | Get single lead | ✅ |
-| PUT | `/leads/:id` | Update lead | ✅ |
-| DELETE | `/leads/:id` | Delete lead | ✅ |
-| GET | `/leads/stats` | Get lead stats | ✅ |
-| GET | `/leads/export` | Export CSV | ✅ |
+| Action          | Admin | Sales User |
+| --------------- | ----- | ---------- |
+| View all leads  | ✅     | ❌          |
+| View own leads  | ✅     | ✅          |
+| Create leads    | ✅     | ✅          |
+| Edit any lead   | ✅     | ❌          |
+| Edit own lead   | ✅     | ✅          |
+| Delete any lead | ✅     | ❌          |
+| Delete own lead | ✅     | ✅          |
+| Export CSV      | ✅     | ✅          |
 
 ---
 
-## 🛠️ TypeScript
+# 📡 API Overview
 
-- Strict mode enabled throughout
-- All models have proper interfaces (no implicit `any`)
-- Enums for `LeadStatus`, `LeadSource`, `UserRole`
-- Shared types between controllers, middleware, and routes
-- Frontend types mirror backend contracts
+Base URL:
 
----
-
-## 📝 Git Commit Convention
-
+```txt
+http://localhost:5000/api
 ```
+
+## Auth Routes
+
+| Method | Endpoint       |
+| ------ | -------------- |
+| POST   | /auth/register |
+| POST   | /auth/login    |
+| GET    | /auth/me       |
+
+---
+
+## Lead Routes
+
+| Method | Endpoint      |
+| ------ | ------------- |
+| GET    | /leads        |
+| POST   | /leads        |
+| GET    | /leads/:id    |
+| PUT    | /leads/:id    |
+| DELETE | /leads/:id    |
+| GET    | /leads/stats  |
+| GET    | /leads/export |
+
+Detailed endpoint documentation is available in `API.md`.
+
+---
+
+# 📸 Screenshots
+
+Add screenshots here:
+
+* Login Page
+* Dashboard
+* Lead Management
+* Filters & Search
+* Dark Mode
+* Mobile View
+
+---
+
+# 🧪 TypeScript Usage
+
+* Strict mode enabled
+* Proper interfaces for models and API responses
+* Enums used for lead status, source, and user roles
+* Shared type safety across frontend and backend
+* Minimal usage of `any`
+
+---
+
+# 📝 Git Commit Convention
+
+Example commit messages used during development:
+
+```bash
+feat: implement JWT authentication
+feat: add lead CRUD APIs
+feat: implement advanced filtering
+feat: add debounced search
+feat: implement RBAC permissions
 feat: add CSV export functionality
-fix: correct pagination skip calculation
-chore: add Docker multi-stage build
-refactor: extract lead filter builder to helper
+fix: correct pagination metadata issue
+fix: handle token expiration properly
+refactor: extract reusable modal component
+refactor: optimize filter query builder
+style: improve responsive dashboard layout
+chore: add Docker configuration
+docs: update README setup instructions
 ```
+
+---
+
+# 🚧 Future Improvements
+
+Possible future enhancements:
+
+* Real-time lead updates using WebSockets
+* Lead activity timeline/history
+* Email notifications
+* Unit & integration testing
+* Analytics dashboard
+* Team collaboration features
+
+---
+
+# 📌 Note
+
+This project was built for the ServiceHive Full Stack Internship Assignment with a focus on clean architecture, scalability, maintainability, and practical real-world workflow implementation.
